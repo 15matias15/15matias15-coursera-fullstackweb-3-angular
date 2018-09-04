@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgModule } from '@angular/core';
@@ -17,6 +18,8 @@ import { ContactComponent } from './contact/contact.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -27,16 +30,19 @@ import { LeaderService } from './services/leader.service';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
     AppRoutingModule
   ],
   providers: [DishService, PromotionService, LeaderService],
+  entryComponents: [LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
