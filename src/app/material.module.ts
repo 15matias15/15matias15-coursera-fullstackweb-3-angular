@@ -35,7 +35,7 @@ import {
     MatCardModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatButtonModule,
