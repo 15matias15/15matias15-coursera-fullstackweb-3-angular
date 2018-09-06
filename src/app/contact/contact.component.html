@@ -37,42 +37,42 @@
             <p>
                 <mat-form-field class="half-width">
                     <input matInput formControlName="firstname" placeholder="First Name" type="text">
-                    <mat-error *ngIf="feedbackForm.get('firstname').hasError('required')">First Name is required</mat-error>
+                    <mat-error *ngIf="formErrors.firstname">{{formErrors.firstname}}</mat-error>
                 </mat-form-field>
                 <mat-form-field class="half-width">
                     <input matInput formControlName="lastname" placeholder="Last Name" type="text">
-                    <mat-error *ngIf="feedbackForm.get('lastname').hasError('required')">Last Name is required</mat-error>
+                    <mat-error *ngIf="formErrors.lastname">{{formErrors.lastname}}</mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field class="half-width">
-                    <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel">
-                    <mat-error *ngIf="feedbackForm.get('telnum').hasError('required')">Tel. Number is required</mat-error>
+                    <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" pattern="[0-9]*">
+                    <mat-error *ngIf=" formErrors.telnum ">{{formErrors.telnum}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="half-width">
-                    <input matInput formControlName="email" placeholder="Email" type="email">
-                    <mat-error *ngIf="feedbackForm.get('email').hasError('required')">Email is required</mat-error>
+                <mat-form-field class="half-width ">
+                    <input matInput formControlName="email" placeholder="Email" type="email" email>
+                    <mat-error *ngIf="formErrors.email ">{{formErrors.email}}</mat-error>
                 </mat-form-field>
             </p>
-            <table class="form-size">
+            <table class="form-size ">
                 <td>
                     <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
                 </td>
                 <td>
-                    <mat-select placeholder="How?" formControlName="contacttype">
-                        <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+                    <mat-select placeholder="How? " formControlName="contacttype">
+                        <mat-option *ngFor="let ctype of contactType " [value]="ctype ">
                             {{ ctype }}
                         </mat-option>
                     </mat-select>
                 </td>
             </table>
             <p>
-                <mat-form-field class="full-width">
-                    <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
-                    <mat-error *ngIf="feedbackForm.get('message').status">Your Feedback is required</mat-error>
+                <mat-form-field class="full-width ">
+                    <textarea matInput formControlName="message" placeholder="Your Feedback " rows=12></textarea>
+                    <mat-error *ngIf="formErrors.message ">{{formErrors.message}}</mat-error>
                 </mat-form-field>
             </p>
-            <button type="submit" [disabled]="feedbackForm.invalid" mat-button class="background-primary text-floral-white">Submit</button>
+            <button type="submit " [disabled]="feedbackForm.invalid " mat-button class="background-primary text-floral-white ">Submit</button>
         </form>
     </div>
 </div>
