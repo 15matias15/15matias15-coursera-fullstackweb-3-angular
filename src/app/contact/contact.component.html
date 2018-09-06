@@ -47,32 +47,32 @@
             <p>
                 <mat-form-field class="half-width">
                     <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" pattern="[0-9]*">
-                    <mat-error *ngIf=" formErrors.telnum ">{{formErrors.telnum}}</mat-error>
+                    <mat-error *ngIf=" formErrors.telnum">{{formErrors.telnum}}</mat-error>
                 </mat-form-field>
-                <mat-form-field class="half-width ">
+                <mat-form-field class="half-width">
                     <input matInput formControlName="email" placeholder="Email" type="email" email>
-                    <mat-error *ngIf="formErrors.email ">{{formErrors.email}}</mat-error>
+                    <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
                 </mat-form-field>
             </p>
-            <table class="form-size ">
+            <table class="form-size">
                 <td>
                     <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
                 </td>
                 <td>
                     <mat-select placeholder="How? " formControlName="contacttype">
-                        <mat-option *ngFor="let ctype of contactType " [value]="ctype ">
+                        <mat-option *ngFor="let ctype of contactType" [value]="ctype ">
                             {{ ctype }}
                         </mat-option>
                     </mat-select>
                 </td>
             </table>
             <p>
-                <mat-form-field class="full-width ">
-                    <textarea matInput formControlName="message" placeholder="Your Feedback " rows=12></textarea>
-                    <mat-error *ngIf="formErrors.message ">{{formErrors.message}}</mat-error>
+                <mat-form-field class="full-width">
+                    <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+                    <mat-error *ngIf="formErrors.message">{{formErrors.message}}</mat-error>
                 </mat-form-field>
             </p>
-            <button type="submit " [disabled]="feedbackForm.invalid " mat-button class="background-primary text-floral-white ">Submit</button>
+            <button type="submit" [disabled]="feedbackForm.invalid" mat-button class="background-primary text-floral-white">Submit</button>
         </form>
     </div>
 </div>
