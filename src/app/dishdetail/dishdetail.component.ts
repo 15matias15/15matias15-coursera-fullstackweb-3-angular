@@ -6,11 +6,18 @@ import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Comment } from '../shared/comment';
+import { visibility, flyInOut, expand } from '../animations/app.animations';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@flyInOut]': 'true',
+    style: 'display: block;'
+  },
+  animations: [flyInOut(), visibility(), expand()]
 })
 export class DishdetailComponent implements OnInit {
   dish: Dish;
@@ -24,6 +31,7 @@ export class DishdetailComponent implements OnInit {
     comment: ''
   };
   errMess: string;
+  visibility = 'shown';
 
   validationMessages = {
     name: {
@@ -48,12 +56,18 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this._ds.getDishIds().subscribe(ids => (this.dishIds = ids));
     this.route.params
-      .pipe(switchMap((params: Params) => this._ds.getDish(+params['id'])))
+      .pipe(
+        switchMap((params: Params) => {
+          this.visibility = 'hidden';
+          return this._ds.getDish(+params['id']);
+        })
+      )
       .subscribe(
         dish => {
           this.dish = dish;
           this.dishcopy = dish;
           this.setPrevNext(dish.id);
+          this.visibility = 'shown';
         },
         errmess => (this.errMess = <any>errmess)
       );
