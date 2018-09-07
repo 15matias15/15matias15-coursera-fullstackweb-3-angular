@@ -22,6 +22,7 @@ export class DishdetailComponent implements OnInit {
     name: '',
     comment: ''
   };
+  errMess: string;
 
   validationMessages = {
     name: {
@@ -47,10 +48,13 @@ export class DishdetailComponent implements OnInit {
     this._ds.getDishIds().subscribe(ids => (this.dishIds = ids));
     this.route.params
       .pipe(switchMap((params: Params) => this._ds.getDish(+params['id'])))
-      .subscribe(dish => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
-      });
+      .subscribe(
+        dish => {
+          this.dish = dish;
+          this.setPrevNext(dish.id);
+        },
+        errmess => (this.errMess = <any>errmess)
+      );
   }
 
   setPrevNext(dishId: number) {
