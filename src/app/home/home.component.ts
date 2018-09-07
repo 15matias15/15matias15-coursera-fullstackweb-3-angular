@@ -30,19 +30,19 @@ export class HomeComponent implements OnInit {
       .getFeaturedDish()
       .subscribe(
         dish => (this.dish = dish),
-        errmess => (this.dishErrMess = <any>errmess)
+        errmess => (this.dishErrMess = <any>errmess.message)
       );
     this._ps
       .getFeaturedPromotion()
       .subscribe(
         promotion => (this.promotion = promotion),
-        errmess => (this.promErrMess = <any>errmess)
+        errmess => (this.promErrMess = <any>errmess.message)
       );
     this._ls
       .getFeaturedLeader()
       .subscribe(
         leader => (this.leader = leader),
-        errmess => (this.leadErrMess = <any>errmess)
+        errmess => (this.leadErrMess = <any>errmess.message)
       );
   }
 }

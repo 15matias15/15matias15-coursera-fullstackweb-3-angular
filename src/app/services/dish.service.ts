@@ -5,62 +5,36 @@ import { map, catchError } from 'rxjs/operators';
 import { Http } from '@angular/http';
 import { baseURL } from '../shared/baseurl';
 import { ProcessHTTPMsgService } from './process-httpmsg.service';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishService {
   constructor(
-    private http: Http,
+    private restangular: Restangular,
     private processHTTPMsgService: ProcessHTTPMsgService
   ) {}
 
   getDishes(): Observable<Dish[]> {
-    return this.http
-      .get(baseURL + 'dishes')
-      .pipe(
-        map(res => {
-          return this.processHTTPMsgService.extractData(res);
-        })
-      )
-      .pipe(
-        catchError(error => this.processHTTPMsgService.handlerError(error))
-      );
+    return this.restangular.all('dishes').getList();
   }
 
   getDish(id: number): Observable<Dish> {
-    return this.http
-      .get(baseURL + 'dishes/' + id)
-      .pipe(
-        map(res => {
-          return this.processHTTPMsgService.extractData(res);
-        })
-      )
-      .pipe(
-        catchError(error => this.processHTTPMsgService.handlerError(error))
-      );
+    return this.restangular.one('dishes', id).get();
   }
 
   getFeaturedDish(): Observable<Dish> {
-    return this.http
-      .get(baseURL + 'dishes?featured=true')
-      .pipe(
-        map(res => {
-          return this.processHTTPMsgService.extractData(res)[0];
-        })
-      )
-      .pipe(
-        catchError(error => this.processHTTPMsgService.handlerError(error))
-      );
+    return this.restangular
+      .all('dishes')
+      .getList({ featured: true })
+      .pipe(map(dishes => dishes[0]));
   }
 
   getDishIds(): Observable<number[] | any> {
-    return this.getDishes()
-      .pipe(
-        map(dishes => {
-          return dishes.map(dish => dish.id);
-        })
-      )
-      .pipe(catchError(error => error));
+    return this.getDishes().pipe(
+      map(dishes => dishes.map(dish => dish.id)),
+      catchError(error => error)
+    );
   }
 }

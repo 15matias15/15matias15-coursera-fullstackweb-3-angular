@@ -14,6 +14,7 @@ import { Comment } from '../shared/comment';
 })
 export class DishdetailComponent implements OnInit {
   dish: Dish;
+  dishcopy = null;
   dishIds: number[];
   prev: number;
   next: number;
@@ -51,6 +52,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe(
         dish => {
           this.dish = dish;
+          this.dishcopy = dish;
           this.setPrevNext(dish.id);
         },
         errmess => (this.errMess = <any>errmess)
@@ -104,7 +106,6 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.commentForm);
     const dt = new Date();
     const dateTime = dt.toISOString();
     const newComment: Comment = {
@@ -113,7 +114,11 @@ export class DishdetailComponent implements OnInit {
       author: this.commentForm.get('name').value,
       date: dateTime
     };
-    this.dish.comments.push(newComment);
+    this.dishcopy.comments.push(newComment);
+    this.dishcopy.save().subscribe(dish => {
+      this.dish = dish;
+      console.log(this.dish);
+    });
     this.commentForm.reset({
       name: '',
       comment: '',
